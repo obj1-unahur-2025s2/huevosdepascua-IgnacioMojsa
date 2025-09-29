@@ -23,14 +23,14 @@ object huevoMixto {
     method chocolateConLeche(){
         return true
     }
-    method caloriasChocolateBlanco{
+    method caloriasChocolateBlanco(){
         return 500 
     }
-    method caloriasChocolateConLeche{
+    method caloriasChocolateConLeche(){
         return 400 
     }
     method calorias(){
-        return caloriasChocolateConLeche + caloriasChocolateBlanco
+        return self.caloriasChocolateConLeche() + self.caloriasChocolateBlanco()
     }
 }
 
@@ -67,8 +67,8 @@ object blisterHuevitos {
 }
 
 object matrioshka {
-    var interior = huevoMixto
-    var decoracion = flor
+    var property interior = huevoMixto
+    var property decoracion = flor
     method chocolateBlanco(){
         return false
     }

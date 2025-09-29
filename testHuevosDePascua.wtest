@@ -1,12 +1,85 @@
+import caceria.*
 import huevosDePascua.*
+import chicos.*
 
-describe "group of tests" {
 
-  test "test 1" {
-    assert.equals(50+50, 100)
+describe "Empieza la caceria" {
+
+  test "Inicia el juego, se esconden una matrioshka (con un blister de 14 huevitos de chocolate con leche adentro) 
+  y de decoracion una flor con siete petalos, un huevo repostero, un conejo y el huevo mixto" 
+  {
+    blisterHuevitos.huevitos(14)
+    matrioshka.interior(blisterHuevitos)
+    flor.petalos(7)
+    caceria.esconderHuevo(matrioshka)
+    caceria.esconderHuevo(huevoRepostero)
+    caceria.esconderHuevo(conejo)
+    caceria.esconderHuevo(huevoMixto)
+    assert.equals(4, caceria.huevosEscondidos())
+    assert.equals(matrioshka, caceria.huevoConMasCalorias())
   }
-  test "test 2" {
-    assert.that(true)
+  
+  test "Ana encuentra y se come el primer huevo escondido" {
+    blisterHuevitos.huevitos(14)
+    matrioshka.interior(blisterHuevitos)
+    flor.petalos(7)
+    caceria.esconderHuevo(matrioshka)
+    caceria.esconderHuevo(huevoRepostero)
+    caceria.esconderHuevo(conejo)
+    caceria.esconderHuevo(huevoMixto)
+    caceria.encontrarPrimerHuevo(ana)
+    assert.that(ana.consumioMasDe5000())
   }
 
+  test "Quedan por encontrar 3 huevos y 2 con chocolate blanco" {
+    blisterHuevitos.huevitos(14)
+    matrioshka.interior(blisterHuevitos)
+    flor.petalos(7)
+    caceria.esconderHuevo(matrioshka)
+    caceria.esconderHuevo(huevoRepostero)
+    caceria.esconderHuevo(conejo)
+    caceria.esconderHuevo(huevoMixto)
+    caceria.encontrarPrimerHuevo(ana)
+    assert.equals(3, caceria.huevosEscondidos())
+    assert.equals(2, caceria.cantidadDeHuevosDeChocolateBlancoEscondidos())
+  }
+
+  test "El conejo aun no fue encontrado" {
+    blisterHuevitos.huevitos(14)
+    matrioshka.interior(blisterHuevitos)
+    flor.petalos(7)
+    caceria.esconderHuevo(matrioshka)
+    caceria.esconderHuevo(huevoRepostero)
+    caceria.esconderHuevo(conejo)
+    caceria.esconderHuevo(huevoMixto)
+    caceria.encontrarPrimerHuevo(ana)
+    assert.that(caceria.unHuevoNoFueEncontrado(conejo))
+  }
+
+  test "el huevo repostero y el huevo mixto contienen chocolate blanco y todavia no fueron encontrados" {
+    blisterHuevitos.huevitos(14)
+    matrioshka.interior(blisterHuevitos)
+    flor.petalos(7)
+    caceria.esconderHuevo(matrioshka)
+    caceria.esconderHuevo(huevoRepostero)
+    caceria.esconderHuevo(conejo)
+    caceria.esconderHuevo(huevoMixto)
+    caceria.encontrarPrimerHuevo(ana)
+    assert.equals([huevoRepostero, huevoMixto], caceria.huevosEscondidosDeChocolateBlanco())
+  }
+
+  test "tito encuentra el huevo mixto, jose encuentra los huevos restantes. Ana y Jose quedan enfermos" {
+    blisterHuevitos.huevitos(14)
+    matrioshka.interior(blisterHuevitos)
+    flor.petalos(7)
+    caceria.esconderHuevo(matrioshka)
+    caceria.esconderHuevo(huevoRepostero)
+    caceria.esconderHuevo(conejo)
+    caceria.esconderHuevo(huevoMixto)
+    caceria.encontrarPrimerHuevo(ana)
+    caceria.encontrarHuevo(tito, huevoMixto)
+    caceria.encontrarHuevosRestantes(jose)
+    assert.that(ana.estaEnfermo())
+    assert.that(jose.estaEnfermo())
+  }
 }
